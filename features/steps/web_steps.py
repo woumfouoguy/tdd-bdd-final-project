@@ -104,6 +104,102 @@ def step_impl(context, element_name):
 # to get the element id of any button
 ##################################################################
 
+@when('I press the "Create" button')
+def press_create_button(context):
+    context.driver.find_element_by_name("create_button").click()
+    time.sleep(1)  # Wait for the operation to complete
+	
+@then(u'I should see the message "Success"')
+def check_success_message(context):
+    success_message = "Success"
+    # Assuming the success message is displayed as text on the page
+    assert success_message in context.driver.page_source, f"Expected '{success_message}' in page source but not found."
+	
+@when(u'I press the "Clear" button')
+def press_clear_button(context):
+    clear_button = context.driver.find_element(By.NAME, "clear_button")
+    clear_button.click()
+    # Add a short wait to allow for the asynchronous operation to complete
+    context.driver.implicitly_wait(3)
+	
+@when(u'I press the "Retrieve" button')
+def press_retrieve_button(context):
+    retrieve_button = context.driver.find_element(By.NAME, "retrieve_button")
+    retrieve_button.click()
+    # Add a short wait to allow for the asynchronous operation to complete
+    context.driver.implicitly_wait(3)
+	
+@when(u'I press the "Search" button')
+def press_search_button(context):
+    search_button = context.driver.find_element(By.NAME, "search_button")
+    search_button.click()
+    # Add a short wait to allow for the asynchronous operation to complete
+    context.driver.implicitly_wait(3)
+	
+@then(u'I should see "CLOTHS" in the "Category" dropdown  # Corrected case to uppercase')
+def check_category_dropdown(context):
+    category_dropdown = Select(context.driver.find_element(By.NAME, "category"))
+    selected_option = category_dropdown.first_selected_option
+    selected_category = selected_option.text.upper()
+    
+    assert "CLOTHS" == selected_category, f"Expected 'CLOTHS' in the Category dropdown but found '{selected_category}'"
+	
+@when(u'I press the "Update" button')
+def press_update_button(context):
+    update_button = context.driver.find_element(By.NAME, "update_button")
+    update_button.click()
+    # Add a short wait to allow for the asynchronous operation to complete
+    context.driver.implicitly_wait(3)
+
+@then(u'I should see "Fedora" in the results')
+def check_fedora_in_results(context):
+    assert "Fedora" in context.driver.page_source
+
+@then(u'I should not see "Hat" in the results')
+def check_hat_not_in_results(context):
+    assert "Hat" not in context.driver.page_source
+
+@when(u'I press the "Delete" button')
+def press_delete_button(context):
+    delete_button = context.driver.find_element(By.NAME, "delete_button")
+    delete_button.click()
+    # Add a short wait to allow for the asynchronous operation to complete
+    context.driver.implicitly_wait(3)
+
+@then(u'I should see the message "Product has been Deleted!"')
+def check_delete_success_message(context):
+    assert "Product has been Deleted!" in context.driver.page_source
+
+@then(u'I should see "Hat" in the results')
+def check_hat_in_results(context):
+    assert "Hat" in context.driver.page_source
+
+@then(u'I should see "Shoes" in the results')
+def check_shoes_in_results(context):
+    assert "Shoes" in context.driver.page_source
+
+@then(u'I should see "Big Mac" in the results')
+def check_big_mac_in_results(context):
+    assert "Big Mac" in context.driver.page_source
+
+@then(u'I should see "Sheets" in the results')
+def check_sheets_in_results(context):
+    assert "Sheets" in context.driver.page_source
+
+@when(u'I select "FOOD" in the "Category" dropdown  # Corrected case to uppercase')
+def select_food_category(context):
+    category_dropdown = Select(context.driver.find_element(By.NAME, "category"))
+    category_dropdown.select_by_visible_text("FOOD")
+    # Add a short wait to allow for the asynchronous operation to complete
+    context.driver.implicitly_wait(3)
+
+@then(u'I should not see "Shoes" in the results')
+def check_shoes_not_in_results(context):
+    assert "Shoes" not in context.driver.page_source
+
+@then(u'I should not see "Sheets" in the results')
+def check_sheets_not_in_results(context):
+    assert "Sheets" not in context.driver.page_source
 ## UPDATE CODE HERE ##
 
 ##################################################################
